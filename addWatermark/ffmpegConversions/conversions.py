@@ -29,7 +29,7 @@ class Conversions:
 
         subprocess.call(simpleFfmpegCommand)
 
-        return convertedVideoPath
+        return { 'convertedVideoPath': convertedVideoPath.replace('/', '_') }
 
 
     def advanced(self, xPos, yPos, size):
@@ -44,4 +44,4 @@ class Conversions:
 
         subprocess.call(advnacedFfmpegCommand)
 
-        return convertedVideoPath
+        return { 'convertedVideoPath': convertedVideoPath.replace('/', '_') }
