@@ -9,7 +9,8 @@ from .serializers import BaseDataSerializer
 from addWatermark.ffmpegConversions.conversions import Conversions
 from addWatermark.utils.generateId import generateRandomString
 
-import os
+import os, threading
+from threading import Lock
 
 @transaction.atomic
 @api_view(['POST'])
