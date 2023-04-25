@@ -8,7 +8,7 @@ class Conversions:
         self.waterMarkPath = waterMarkPath
         self.ffmpegCommand = 'ffmpeg -y -i {videoPath} -i {waterMarkPath} -filter_complex "[1]lut=a=val*{size}[a];[0][a]{position}" -c:v libx264 {convertedVideoPath}'
 
-    def simple(self, position, size):
+    def simple(self, position: str, size: str):
         waterMarkPositions = {
             'tl': 'overlay=25:25',
             'tr': 'overlay=W-w-25:25',
@@ -20,11 +20,13 @@ class Conversions:
 
         simpleConversionId = generateRandomString(5)
         convertedVideoPath = f'storage/convertedVideos/simpleConv{simpleConversionId}.mp4'
-        print(self.waterMarkPath, self.videoPath)
 
         simpleFfmpegCommand = self.ffmpegCommand.format(
-            videoPath=self.videoPath, waterMarkPath=self.waterMarkPath, 
-            size=size, position=waterMarkPosition, convertedVideoPath=convertedVideoPath
+            videoPath=self.videoPath, 
+            waterMarkPath=self.waterMarkPath, 
+            size=size, 
+            position=waterMarkPosition, 
+            convertedVideoPath=convertedVideoPath
         )
 
         subprocess.call(simpleFfmpegCommand)
@@ -32,13 +34,15 @@ class Conversions:
         return { 'convertedVideoPath': convertedVideoPath.replace('/', '_') }
 
 
-    def advanced(self, xPos, yPos, size):
+    def advanced(self, xPos: int, yPos: int, size: str):
         advancedConversionId = generateRandomString(5)
         convertedVideoPath = f'storage/convertedVideos/advancedConv{advancedConversionId}.mp4'
 
         advnacedFfmpegCommand = self.ffmpegCommand.format(
-            videoPath=self.videoPath, waterMarkPath=self.waterMarkPath, 
-            size=size, position=f'overlay={xPos}:{yPos}',
+            videoPath=self.videoPath,
+            waterMarkPath=self.waterMarkPath,
+            size=size,
+            position=f'overlay={xPos}:{yPos}',
             convertedVideoPath=convertedVideoPath
         )
 
